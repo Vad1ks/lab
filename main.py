@@ -8,9 +8,16 @@ class User:
         self.email = email
         User.userID += 1
 
+    def __str__(self):
+        return f"userID = {self.userID};\nname = {self.name};\nphoneNumber: {self.phoneNumber};\nemail: {self.email};"
+
+    @classmethod
+    def write_message(cls, message):
+        print(message)
+
 
 class Address:
-    def __init__(self, country, city, street):
+    def __init__(self, country="Not filled", city="Not filled", street="Not filled"):
         self.country = country
         self.city = city
         self.street = street
@@ -22,12 +29,11 @@ class Address:
 class Student(User):
     def __init__(self, name, phoneNumber, email):
         super().__init__(name, phoneNumber, email)
-        self.address = Address(country="Not filled", city="Not filled", street="Not filled")
+        self.address = Address()
         self.marks = []
 
     def __str__(self):
-        return f"userID = {self.userID};\nname = {self.name};\nphoneNumber: {self.phoneNumber};\nemail: {self.email};\
-        \navgMark: {self.get_average_mark():.2f}\nAddress: {self.address}"
+        return f"{super().__str__()} \navgMark: {self.get_average_mark():.2f}\nAddress: {self.address}"
 
     def set_address(self, country, city, street):
         self.address.country = country
@@ -44,24 +50,50 @@ class Student(User):
             marksum += mark
         return marksum / len(self.marks)
 
+
 class StudentsGroup:
-    #average mark
     def __init__(self, name):
         self.name = name
         self.studentsList = []
+
+    def get_average_mark(self):
+        marksum = 0
+        for student in self.studentsList:
+            marksum += student.get_average_mark()
+        return marksum / len(self.studentsList)
 
 
 class Professor(User):
     def __init__(self, name, phoneNumber, email, subject):
         super().__init__(name, phoneNumber, email)
         self.subject = subject
+        self.address = Address()
 
     def __str__(self):
-        return str("")
+        return f"{super().__str__()} \navgMark: {self.subject}\nAddress: {self.address}"
+
+    def create_chat(self, chatname):
+        chat = Chat(chatname)
+        chat.add_user(self.userID)
 
 
 class Chat:
-    pass
+    chatID = 1
+
+    def __init__(self, name):
+        self.chatID = Chat.chatID
+        self.name = name
+        self.users = []
+        self.messages = []
+
+    def add_user(self, userID):
+        self.users.append(userID)
+
+    def catch_message(self, message):
+        self.messages.append(message)
+
+    def show_all_messages(self):
+        print(self.messages)
 
 
 if __name__ == "__main__":
