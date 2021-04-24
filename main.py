@@ -18,8 +18,9 @@ class User:
             if chat.name == chatname:
                 chat.messages.append(f"sent by: {self.userID}, message: {message}")
 
-    def get_all_users_count(self):
-        return len(self.users)
+    @classmethod
+    def get_all_users_count(cls):
+        return len(cls.users)
 
 
 class Address:
