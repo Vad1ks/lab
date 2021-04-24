@@ -87,7 +87,7 @@ class Group:
 
     def show_studentsList(self):
         for student in self.studentsList:
-            print(student.userID, student.name)
+            print(f"\t{student.userID}, {student.name}")
 
 
 class Professor(User):
@@ -103,8 +103,9 @@ class Professor(User):
         return f"{super().__str__()} \navgMark: {self.subject}\nAddress: {self.address}"
 
     def create_chat(self, chatname):
-        chat = Chat(chatname)
-        chat.add_user(self.userID)
+        tempchat = Chat(chatname)
+        tempchat.add_user(self)
+        Chat.chatList.append(tempchat)
 
 
 class Chat:
@@ -134,4 +135,4 @@ if __name__ == "__main__":
     g.add_student(s)
     print(f"There are {g.get_students_count()} student(s) in group {g.name}:")
     g.show_studentsList()
-    print(f"\tThe average mark of students is {g.get_average_mark()}")
+    print(f"The average mark of students is {g.get_average_mark()}")
