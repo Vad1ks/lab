@@ -87,7 +87,8 @@ class Group:
 
     def show_studentsList(self):
         for student in self.studentsList:
-            print(f"\t{student.userID}, {student.name}")
+            print("\tID | Name")
+            print(f"\t{student.userID}  | {student.name}")
 
 
 class Professor(User):
