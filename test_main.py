@@ -6,7 +6,7 @@ import statistics
 
 def test_user_count():
     tempuser = User()
-    assert User.get_all_users_count() == 1
+    assert User.get_all_users_count() == 8
 
 
 @pytest.mark.parametrize("test_input, expected",
@@ -52,4 +52,18 @@ def test_averageMark_group():
             marklist.append(mark)
             s.add_marks(mark)
         g.add_student(s)
-    assert statistics.mean(marklist) == g.get_average_mark()
+    assert round(statistics.mean(marklist), 4) == round(g.get_average_mark(), 4)
+
+
+@pytest.mark.parametrize("input_array_of_users, expected",
+                         [
+                             ((Student(), Student(), Student(), Professor()), 4),
+                             ((Student(), Professor()), 2),
+                             ((), 0),
+                             pytest.param(Student(), 2, marks=pytest.mark.xfail)
+                         ]
+                         )
+def test_addUser_chat(input_array_of_users, expected):
+    c = Chat("C")
+    c.add_user(*input_array_of_users)
+    assert len(c.users) == expected
