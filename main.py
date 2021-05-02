@@ -2,7 +2,7 @@ class User:
     users = []
     userID = 1
 
-    def __init__(self, name, phoneNumber, email):
+    def __init__(self, name="Not filled", phoneNumber="Not filled", email="Not filled"):
         self.userID = User.userID
         self.name = name
         self.phoneNumber = phoneNumber
@@ -36,7 +36,7 @@ class Address:
 class Student(User):
     students = []
 
-    def __init__(self, name, phoneNumber, email):
+    def __init__(self, name="Not filled", phoneNumber="Not filled", email="Not filled"):
         super().__init__(name, phoneNumber, email)
         self.address = Address()
         self.marks = []
@@ -94,7 +94,7 @@ class Group:
 class Professor(User):
     professors = []
 
-    def __init__(self, name, phoneNumber, email, subject):
+    def __init__(self, name="Not filled", phoneNumber="Not filled", email="Not filled", subject="Not filled"):
         super().__init__(name, phoneNumber, email)
         self.subject = subject
         self.address = Address()
