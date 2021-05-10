@@ -117,7 +117,8 @@ class Chat:
         self.chatID = Chat.chatID
         self.name = name
         self.users = []
-        self.messages = {}
+        self.messages = []
+        Chat.chatList.append(self)
 
     def add_user(self, *users):
         for user in users:
@@ -137,3 +138,8 @@ if __name__ == "__main__":
     print(f"There are {g.get_students_count()} student(s) in group {g.name}:")
     g.show_studentsList()
     print(f"The average mark of students is {g.get_average_mark()}")
+
+    u = User()
+    c = Chat("test")
+    u.write_message("test", "Hello")
+    c.show_all_messages()
